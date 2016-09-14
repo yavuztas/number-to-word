@@ -15,6 +15,13 @@ public class TurkishNumberToWord extends AbstractNumberToWord {
 
 		StringBuilder sb = new StringBuilder();
 
+		if (text.startsWith("0")) {
+			if (Integer.parseInt(text) == 0) {
+				return "";
+			}
+			text = String.valueOf(Integer.parseInt(text));
+		}
+
 		int length = text.length();
 		if (length == 0) {
 			sb.append("");
@@ -66,7 +73,26 @@ public class TurkishNumberToWord extends AbstractNumberToWord {
 			sb.append(readDigits(text.substring(String.valueOf(division).length())));
 		}
 
-		return sb.toString();
+		return sb.toString().trim();
+	}
+
+	public String readDigitsWithLeadingZeros(String text) {
+		StringBuilder sb = new StringBuilder();
+		if (text.startsWith("0")) {
+			String[] split = text.split("[1-9]");
+			String zerosPart = split[0];
+			String nonZerosPart = text.replaceFirst(zerosPart, "");
+			// read every single zero one by one
+			for (char c : zerosPart.toCharArray()) {
+				sb.append(digits[Integer.parseInt(String.valueOf(c))]);
+				sb.append(" ");
+			}
+			if (!nonZerosPart.isEmpty()) {
+				sb.append(readDigits(nonZerosPart));
+			}
+			return sb.toString().trim();
+		}
+		return "";
 	}
 
 }

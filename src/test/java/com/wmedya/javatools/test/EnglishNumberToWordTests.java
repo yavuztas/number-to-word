@@ -17,13 +17,6 @@ public class EnglishNumberToWordTests {
 	}
 
 	@Test
-	public void specialCaseZeroTest() {
-		String number = "0";
-		String output = toWords.readDigits(number);
-		Assert.assertEquals("zero", output);
-	}
-
-	@Test
 	public void oneDigitNumberTest() {
 		String number = "6";
 		String output = toWords.readDigits(number);
@@ -35,6 +28,13 @@ public class EnglishNumberToWordTests {
 		String number = "15";
 		String output = toWords.readDigits(number);
 		Assert.assertEquals("fifteen", output);
+	}
+
+	@Test
+	public void twoDigitsLastOneZeroNumberTest() {
+		String number = "70";
+		String output = toWords.readDigits(number);
+		Assert.assertEquals("seventy", output);
 	}
 
 	@Test
@@ -126,6 +126,80 @@ public class EnglishNumberToWordTests {
 		Assert.assertEquals(
 				"nine hundred eighty three sextillion three hundred twenty one quintillion nine hundred fifty four quadrillion seven hundred eighty five trillion nine hundred eighty three billion three hundred twenty one million nine hundred fifty four thousand seven hundred eighty five",
 				output);
+	}
+
+	@Test
+	public void extremePointsTest() {
+		String number = "70";
+		String output = toWords.readDigits(number);
+		Assert.assertEquals("seventy", output);
+
+		number = "700";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("seven hundred", output);
+
+		number = "701";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("seven hundred one", output);
+
+		number = "7000";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("seven thousand", output);
+
+		number = "7001";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("seven thousand one", output);
+
+		number = "70000";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("seventy thousand", output);
+
+		number = "70001";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("seventy thousand one", output);
+
+		number = "7100010001";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("seven billion one hundred million ten thousand one", output);
+
+		number = "7000000001";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("seven billion one", output);
+	}
+
+	@Test
+	public void specialCaseZerosNumberTest() {
+		String number = "0";
+		String output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("oh", output);
+
+		number = "07";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("oh seven", output);
+
+		number = "007";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("double oh seven", output);
+
+		number = "0070";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("double oh seventy", output);
+
+		number = "00700";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("double oh seven hundred", output);
+
+		number = "00777";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("double oh seven hundred seventy seven", output);
+
+		number = "0003";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("triple oh three", output);
+
+		number = "000000003";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("octuple oh three", output);
 	}
 
 }

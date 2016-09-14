@@ -17,8 +17,16 @@ public abstract class AbstractNumberToWord implements INumberToWord {
 	protected String[] hundreds = new String[10];
 	protected String[] scales = new String[30];
 
-	@Override
-	public Number calculateDivison(String text) {
+	/**
+	 * Parses a string number as integer according to its size and calculates
+	 * division by the power of thousand. Should be carefully implemented and
+	 * used proper type like int, long or BigInteger considering the size of the
+	 * integer.
+	 * 
+	 * @param text
+	 * @return division by the power of thousand
+	 */
+	protected Number calculateDivison(String text) {
 		Double power = Math.pow(1000, (text.length() - 1) / 3);
 		if (power.toString().contains("E")) {
 			BigDecimal bigDecimal = new BigDecimal(Math.pow(1000, (text.length() - 1) / 3));

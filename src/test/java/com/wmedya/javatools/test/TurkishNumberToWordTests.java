@@ -17,13 +17,6 @@ public class TurkishNumberToWordTests {
 	}
 
 	@Test
-	public void specialCaseZeroTest() {
-		String number = "0";
-		String output = toWords.readDigits(number);
-		Assert.assertEquals("sıfır", output);
-	}
-
-	@Test
 	public void oneDigitNumberTest() {
 		String number = "6";
 		String output = toWords.readDigits(number);
@@ -123,6 +116,72 @@ public class TurkishNumberToWordTests {
 		Assert.assertEquals(
 				"dokuz yüz seksen üç seksilyon üç yüz yirmi bir kentilyon dokuz yüz elli dört katrilyon yedi yüz seksen beş trilyon dokuz yüz seksen üç milyar üç yüz yirmi bir milyon dokuz yüz elli dört bin yedi yüz seksen beş",
 				output);
+	}
+
+	@Test
+	public void extremePointsTest() {
+		String number = "70";
+		String output = toWords.readDigits(number);
+		Assert.assertEquals("yetmiş", output);
+
+		number = "700";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("yedi yüz", output);
+
+		number = "701";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("yedi yüz bir", output);
+
+		number = "7000";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("yedi bin", output);
+
+		number = "7001";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("yedi bin bir", output);
+
+		number = "70000";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("yetmiş bin", output);
+
+		number = "70001";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("yetmiş bin bir", output);
+
+		number = "7100010001";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("yedi milyar yüz milyon on bin bir", output);
+
+		number = "7000000001";
+		output = toWords.readDigits(number);
+		Assert.assertEquals("yedi milyar bir", output);
+	}
+
+	@Test
+	public void specialCaseZerosNumberTest() {
+		String number = "0";
+		String output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("sıfır", output);
+
+		number = "07";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("sıfır yedi", output);
+
+		number = "007";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("sıfır sıfır yedi", output);
+
+		number = "0070";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("sıfır sıfır yetmiş", output);
+
+		number = "00700";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("sıfır sıfır yedi yüz", output);
+
+		number = "00777";
+		output = toWords.readDigitsWithLeadingZeros(number);
+		Assert.assertEquals("sıfır sıfır yedi yüz yetmiş yedi", output);
 	}
 
 }

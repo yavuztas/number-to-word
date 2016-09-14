@@ -4,6 +4,10 @@ import com.wmedya.javatools.numbertoword.AbstractNumberToWord;
 
 public class EnglishNumberToWord extends AbstractNumberToWord {
 
+	// coming from latin numerals is used in english
+	private String[] tuples = new String[] { "", "", "double", "triple", "quadruple", "quintuple", "sextuple", "septuple", "octuple", "nonuple",
+			"decuple", "undecuple", "duodecuple", "tredecuple" };
+
 	public EnglishNumberToWord() {
 		addDigits("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
 		addTens("ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen");
@@ -16,6 +20,13 @@ public class EnglishNumberToWord extends AbstractNumberToWord {
 	public String readDigits(String text) {
 
 		StringBuilder sb = new StringBuilder();
+
+		if (text.startsWith("0")) {
+			if (Integer.parseInt(text) == 0) {
+				return "";
+			}
+			text = String.valueOf(Integer.parseInt(text));
+		}
 
 		int length = text.length();
 		if (length == 0) {
@@ -69,7 +80,27 @@ public class EnglishNumberToWord extends AbstractNumberToWord {
 			sb.append(readDigits(text.substring(String.valueOf(division).length())));
 		}
 
-		return sb.toString();
+		return sb.toString().trim();
+	}
+
+	public String readDigitsWithLeadingZeros(String text) {
+		StringBuilder sb = new StringBuilder();
+		if (text.startsWith("0")) {
+			String[] split = text.split("[1-9]");
+			String zerosPart = split[0];
+			String nonZerosPart = text.replaceFirst(zerosPart, "");
+			if (zerosPart.length() > 13) {
+				sb.append("very very oh");
+			} else {
+				sb.append(tuples[zerosPart.length()] + " oh");
+			}
+			sb.append(" ");
+			if (!nonZerosPart.isEmpty()) {
+				sb.append(readDigits(nonZerosPart));
+			}
+			return sb.toString().trim();
+		}
+		return "";
 	}
 
 }

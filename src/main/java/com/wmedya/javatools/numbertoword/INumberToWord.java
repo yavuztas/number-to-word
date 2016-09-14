@@ -7,19 +7,17 @@ public interface INumberToWord {
 	 * and implementation should change according to language
 	 * 
 	 * @param text
-	 * @return
+	 * @return words equivalents of given number string
 	 */
 	public String readDigits(String text);
 
 	/**
-	 * Parses a string number as integer according to its size and calculates
-	 * division by the power of thousand. Should be carefully implemented and
-	 * used proper type like int, long or BigInteger considering the size of the
-	 * integer.
+	 * Parses a number string into word equivalents accounting the leading
+	 * zeros. For example "007" should read as "zero zero seven"
 	 * 
 	 * @param text
-	 * @return division by the power of thousand
+	 * @return words equivalents of given number string
 	 */
-	public Number calculateDivison(String text);
+	public String readDigitsWithLeadingZeros(String text);
 
 }
