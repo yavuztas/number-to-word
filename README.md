@@ -21,3 +21,10 @@ Usage:
     String output = toWords.readDigits(number);
     //output => thirty two thousand six hundred fourty three
     
+Wanna see some cool stuff? Try this:
+
+	EnglishNumberToWord toWords = new EnglishNumberToWord();
+	String number = "007";
+	String output = toWords.readDigitsWithLeadingZeros(number);
+	System.out.println("My name is Bond, "+output+" James Bond!");
+    
