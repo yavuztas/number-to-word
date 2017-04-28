@@ -27,9 +27,9 @@ public abstract class AbstractNumberToWord implements INumberToWord {
 	 * @return division by the power of thousand
 	 */
 	protected Number calculateDivison(String text) {
-		Double power = Math.pow(1000, (text.length() - 1) / 3);
+		Double power = Math.pow(1000, (text.length() - 1) / 3d);
 		if (power.toString().contains("E")) {
-			BigDecimal bigDecimal = new BigDecimal(Math.pow(1000, (text.length() - 1) / 3));
+			BigDecimal bigDecimal = BigDecimal.valueOf(Math.pow(1000, (text.length() - 1) / 3d));
 			return new BigInteger(text).divide(bigDecimal.toBigInteger());
 		} else {
 			return Long.valueOf(text) / power.longValue();
